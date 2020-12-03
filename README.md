@@ -7,6 +7,26 @@ This package provides leader election through consul
 
  https://www.consul.io/docs/guides/leader-election.html
 
+Fork 改动
+========
+创建 session 的 checkID 由之前的 Checks 改为 NodeChecks
+
+旧的
+```go
+&api.SessionEntry{
+		Checks: e.Checks,
+		TTL: (3*e.CheckTimeout).String(),
+	}
+```
+
+新的：
+```go
+&api.SessionEntry{
+		NodeChecks: e.Checks,
+		TTL:        (3 * e.CheckTimeout).String(),
+	}
+```
+
  How to use
  ==========
  ```go
