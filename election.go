@@ -3,11 +3,12 @@ package election
 // Leader election
 // https://www.consul.io/docs/guides/leader-election.html
 import (
-	"github.com/hashicorp/consul/api"
 	"log"
 	"runtime"
 	"sync"
 	"time"
+
+	"github.com/hashicorp/consul/api"
 )
 
 // Log levels
@@ -81,8 +82,8 @@ func NewElection(c *ElectionConfig) *Election {
 
 func (e *Election) createSession() (err error) {
 	ses := &api.SessionEntry{
-		Checks: e.Checks,
-		TTL: (3*e.CheckTimeout).String(),
+		NodeChecks: e.Checks,
+		TTL:        (3 * e.CheckTimeout).String(),
 	}
 	e.sessionID, _, err = e.Client.Session().Create(ses, nil)
 	if err != nil {
