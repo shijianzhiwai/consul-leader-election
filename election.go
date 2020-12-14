@@ -81,9 +81,13 @@ func NewElection(c *ElectionConfig) *Election {
 }
 
 func (e *Election) createSession() (err error) {
+	ttl := 3 * e.CheckTimeout
+	if ttl < 10*time.Second {
+		ttl = 10 * time.Second
+	}
 	ses := &api.SessionEntry{
 		NodeChecks: e.Checks,
-		TTL:        (3 * e.CheckTimeout).String(),
+		TTL:        ttl.String(),
 	}
 	e.sessionID, _, err = e.Client.Session().Create(ses, nil)
 	if err != nil {
