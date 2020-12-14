@@ -14,17 +14,17 @@ Fork 改动
 旧的
 ```go
 &api.SessionEntry{
-		Checks: e.Checks,
-		TTL: (3*e.CheckTimeout).String(),
-	}
+	Checks: e.Checks,
+	TTL: (3*e.CheckTimeout).String(),
+}
 ```
 
 新的：
 ```go
 &api.SessionEntry{
-		NodeChecks: e.Checks,
-		TTL:        (3 * e.CheckTimeout).String(),
-	}
+	NodeChecks: e.Checks,
+	TTL:        (3 * e.CheckTimeout).String(),
+}
 ```
 
  How to use
